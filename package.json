@@ -1,0 +1,38 @@
+{
+  "name": "xhtml.js",
+  "version": "0.1.4",
+  "description": "🦑 常用的html操作集合。Common set of html operations.",
+  "browser": "dist/xhtml.min.js",
+  "scripts": {
+    "start": "npm install && npm run build",
+    "build": "npm run build:bundle && npm run build:babel && npm run build:uglify && node ./scripts/prependBanner.js",
+    "build:bundle": "rollup src/index.js --file dist/xhtml.es5+.js --format iife --name 'bundle'",
+    "build:babel": "npx babel dist/xhtml.es5+.js --out-file dist/xhtml.js",
+    "build:uglify": "uglifyjs dist/xhtml.js -o dist/xhtml.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yelloxing/xhtml.js.git"
+  },
+  "keywords": [
+    "xhtml",
+    "html",
+    "dom"
+  ],
+  "author": "心叶",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yelloxing/xhtml.js/issues"
+  },
+  "homepage": "https://github.com/yelloxing/xhtml.js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "rollup": "^1.20.0",
+    "uglify-js": "^3.6.0"
+  },
+  "dependencies": {
+    "@yelloxing/core.js": "^0.3.0"
+  }
+}
