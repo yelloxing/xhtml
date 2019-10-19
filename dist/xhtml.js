@@ -5,14 +5,14 @@
 *
 * author 心叶
 *
-* version 0.1.4
+* version 1.0.0-alpha
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Sat Oct 12 2019 14:28:48 GMT+0800 (GMT+08:00)
+* Date:Sat Oct 19 2019 17:04:37 GMT+0800 (GMT+08:00)
 */
 
 "use strict";
@@ -187,6 +187,21 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   function isElement(value) {
     return value !== null && _typeof(value) === 'object' && (value.nodeType === 1 || value.nodeType === 9 || value.nodeType === 11) && !isPlainObject(value);
   }
+  /**
+   * 判断一个值是不是Object。
+   *
+   * @since V0.1.2
+   * @public
+   * @param {*} value 需要判断类型的值
+   * @returns {boolean} 如果是Object返回true，否则返回false
+   */
+
+
+  function isObject(value) {
+    var type = _typeof(value);
+
+    return value != null && (type === 'object' || type === 'function');
+  }
 
   var xhtml = function xhtml() {
     for (var _len2 = arguments.length, nodes = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -250,7 +265,233 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return target;
   };
 
-  xhtml.prototype.init.prototype = xhtml.prototype; // 判断当前环境，如果不是浏览器环境
+  xhtml.prototype.init.prototype = xhtml.prototype; // 把字符串变成结点
+
+  var toNode = function toNode(template) {
+    var frame = document.createElement("div");
+    frame.innerHTML = template;
+    var childNodes = frame.childNodes;
+
+    for (var i = 0; i < childNodes.length; i++) {
+      if (isElement(childNodes[i])) {
+        return childNodes[i];
+      }
+    }
+
+    return null;
+  };
+
+  function toNode$1(template) {
+    if (isElement(template)) {
+      return template;
+    } else if (isString(template)) {
+      return toNode(template);
+    } else {
+      throw new Error('Illegal template!');
+    }
+  }
+  /**
+   * 基本的DOM操作:增删改查
+   */
+
+  /*添加结点*/
+  // 在被选元素内部的结尾插入内容
+
+
+  function append(node) {
+    if (this.length > 0) {
+      this[0].appendChild(toNode$1(node));
+    }
+
+    return this;
+  } // 在被选元素内部的开头插入内容
+
+
+  function prepend(node) {
+    if (this.length > 0) {
+      this[0].insertBefore(toNode$1(node), this[0].childNodes[0]);
+    }
+
+    return this;
+  } // 在被选元素之后插入内容
+
+
+  function after(node) {
+    if (this.length > 0) {
+      this[0].parentNode.insertBefore(toNode$1(node), this[0].nextSibling);
+    }
+
+    return this;
+  } // 在被选元素之前插入内容
+
+
+  function before(node) {
+    if (this.length > 0) {
+      this[0].parentNode.insertBefore(toNode$1(node), this[0]);
+    }
+
+    return this;
+  }
+  /**
+   * 属性操作
+   */
+
+
+  function attr(attr, val) {
+    if (arguments.length < 2) {
+      return this.length > 0 ? this[0].getAttribute(attr) : undefined;
+    }
+
+    for (var i = 0; i < this.length; i++) {
+      this[i].setAttribute(attr, val);
+    }
+
+    return this;
+  }
+  /**
+   * 返回渲染后的CSS样式值
+   * @param {DOM} dom 目标结点
+   * @param {String} name 属性名称（可选）
+   * @return {String}
+   */
+
+
+  function getStyle(dom, name) {
+    // 获取结点的全部样式
+    var allStyle = document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(dom, null) : dom.currentStyle; // 如果没有指定属性名称，返回全部样式
+
+    return typeof name === 'string' ? allStyle.getPropertyValue(name) : allStyle;
+  }
+  /**
+   * 样式操作和class相关操作
+   * @arguments(key):获取指定样式
+   * @arguments(key,value):设置指定样式
+   * @arguments():获取全部样式
+   * @arguments(json):设置大量样式
+   */
+
+
+  function css() {
+    // 获取样式
+    if (arguments.length <= 1 && (arguments.length <= 0 || _typeof(arguments[0]) !== 'object')) {
+      if (this.length <= 0) return; // 为了获取非style定义的样式，需要使用特殊的方法获取
+
+      return getStyle(this[0], arguments[0]);
+    } // 设置样式
+
+
+    for (var i = 0; i < this.length; i++) {
+      if (arguments.length === 1) {
+        for (var key in arguments[0]) {
+          this[i].style[key] = arguments[0][key];
+        }
+      } else this[i].style[arguments[0]] = arguments[1];
+    }
+
+    return this;
+  }
+  /**
+   * 事件操作
+   */
+  // 阻止冒泡
+
+
+  function stopPropagation(event) {
+    event = event || window.event;
+
+    if (event.stopPropagation) {
+      //这是其他非IE浏览器
+      event.stopPropagation();
+    } else {
+      event.cancelBubble = true;
+    }
+  } // 阻止默认事件
+
+
+  function preventDefault(event) {
+    event = event || window.event;
+
+    if (event.preventDefault) {
+      event.preventDefault();
+    } else {
+      event.returnValue = false;
+    }
+  } // 绑定事件
+
+
+  function bind(eventType, callback) {
+    if (window.attachEvent) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].attachEvent("on" + eventType, callback);
+      } // 后绑定的先执行
+
+    } else {
+      for (var _i = 0; _i < this.length; _i++) {
+        this[_i].addEventListener(eventType, callback, false);
+      } // 捕获
+
+    }
+
+    return this;
+  } // 解除绑定
+
+
+  function unbind(eventType, handler) {
+    if (window.detachEvent) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].detachEvent("on" + eventType, handler);
+      }
+    } else {
+      for (var _i2 = 0; _i2 < this.length; _i2++) {
+        this[_i2].removeEventListener(eventType, handler, false);
+      } // 捕获
+
+    }
+
+    return this;
+  } // 触发事件
+
+
+  function trigger(eventType) {
+    var i, event; //创建event的对象实例。
+
+    if (document.createEventObject) {
+      // IE浏览器支持fireEvent方法
+      event = document.createEventObject();
+
+      for (i = 0; i < this.length; i++) {
+        this[i].fireEvent('on' + eventType, event);
+      }
+    } // 其他标准浏览器使用dispatchEvent方法
+    else {
+        event = document.createEvent('HTMLEvents'); // 3个参数：事件类型，是否冒泡，是否阻止浏览器的默认行为
+
+        event.initEvent(eventType, true, false);
+
+        for (i = 0; i < this.length; i++) {
+          this[i].dispatchEvent(event);
+        }
+      }
+
+    return this;
+  }
+
+  xhtml.prototype.extend({
+    // 追加结点
+    append: append,
+    prepend: prepend,
+    after: after,
+    before: before,
+    // 属性和样式
+    attr: attr,
+    css: css,
+    // DOM事件
+    stopPropagation: stopPropagation,
+    preventDefault: preventDefault,
+    bind: bind,
+    unbind: unbind,
+    trigger: trigger
+  }); // 判断当前环境，如果不是浏览器环境
 
   if ((typeof module === "undefined" ? "undefined" : _typeof(module)) === "object" && _typeof(module.exports) === "object") {
     module.exports = xhtml;

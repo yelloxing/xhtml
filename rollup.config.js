@@ -5,7 +5,7 @@ export default {
   input: 'src/index.js',
   output: {
     format: 'iife',
-    "name": "boundle",
+    name: "boundle",
     file: 'dist/xhtml.es5+.js'
   },
   "plugins": [

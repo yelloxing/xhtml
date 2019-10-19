@@ -1,5 +1,6 @@
 import concat from '@yelloxing/core.js/concat';
 import isElement from '@yelloxing/core.js/isElement';
+import isObject from '@yelloxing/core.js/isObject';
 
 let xhtml = function (...nodes) {
   return new xhtml.prototype.init(nodes);

@@ -1,6 +1,6 @@
 {
   "name": "xhtml.js",
-  "version": "0.1.4",
+  "version": "1.0.0-alpha",
   "description": "🦑 常用的html操作集合。Common set of html operations.",
   "browser": "dist/xhtml.min.js",
   "scripts": {

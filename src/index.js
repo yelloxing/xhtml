@@ -1,5 +1,23 @@
 import xhtml from './xhtml';
 
+import { append, prepend, after, before } from './dom';
+import attr from './attribute';
+import css from './style';
+import { stopPropagation, preventDefault, bind, unbind, trigger } from './event';
+
+xhtml.prototype.extend({
+
+  // 追加结点
+  append, prepend, after, before,
+
+  // 属性和样式
+  attr, css,
+
+  // DOM事件
+  stopPropagation, preventDefault, bind, unbind, trigger
+
+});
+
 // 判断当前环境，如果不是浏览器环境
 if (typeof module === "object" && typeof module.exports === "object") {
   module.exports = xhtml;
