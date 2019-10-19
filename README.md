@@ -14,8 +14,15 @@ In a browser:
 ```
 
 use:
+
 ```js
-__.XXX();
+xhtml.XXX();
+```
+
+or
+
+```js
+xhtml(nodes).XXX();
 ```
 
 Using npm:
@@ -26,13 +33,13 @@ $ npm i xhtml.js
 Note: add --save if you are using npm < 5.0.0
 
 ```js
-const __ = require('xhtml.js');
+const xhtml = require('xhtml.js');
 ```
 
 or
 
 ```js
-import __ from 'xhtml.js';
+import xhtml from 'xhtml.js';
 ```
 
 ## License
