@@ -20,29 +20,36 @@
     <ul>
       <li onclick='window.location.href="https://github.com/yelloxing/xhtml.js"'>🦑 xhtml.js</li>
       <li onclick='window.location.href="./xhtml.html"'>结点对象</li>
-      <li class='active' onclick='window.location.href="./index.html"'>结点操作</li>
-      <li onclick='window.location.href="./event.html"'>事件</li>
+      <li onclick='window.location.href="./index.html"'>结点操作</li>
+      <li class='active' onclick='window.location.href="./event.html"'>事件</li>
       <li onclick='window.location.href="./attr_style.html"'>属性或样式</li>
     </ul>
   </header>
   <section>
-    <div class="title">追加结点</div>
+    <div class="title">解绑定</div>
     <div class="block">
-      1.在被选元素内部的结尾插入内容：
+      1.绑定事件：
     </div>
-    <pre class="code prettyprint">xhtmlObj.append(node|template);</pre>
+    <pre class="code prettyprint">xhtmlObj.bind(eventType, callback);</pre>
     <div class="block">
-      2.在被选元素内部的开头插入内容：
+      2.解除事件：
     </div>
-    <pre class="code prettyprint">xhtmlObj.prepend(node|template);</pre>
+    <pre class="code prettyprint">xhtmlObj.unbind(eventType, handler);</pre>
     <div class="block">
-      3.在被选元素之后插入内容：
+      3.触发事件：
     </div>
-    <pre class="code prettyprint">xhtmlObj.after(node|template);</pre>
+    <pre class="code prettyprint">xhtmlObj.trigger(eventType);</pre>
+  </section>
+  <section>
+    <div class="title">冒泡相关</div>
     <div class="block">
-      4.在被选元素之前插入内容：
+      1.阻止冒泡：
     </div>
-    <pre class="code prettyprint">xhtmlObj.before(node|template);</pre>
+    <pre class="code prettyprint">xhtml.stopPropagation(event);</pre>
+    <div class="block">
+      2.阻止默认事件：
+    </div>
+    <pre class="code prettyprint">xhtml.preventDefault(event);</pre>
   </section>
   <footer>
     心叶 &copy;2007-2019 走一步，再走一步

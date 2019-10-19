@@ -5,14 +5,14 @@
 *
 * author 心叶
 *
-* version 1.0.0-alpha
+* version 1.0.1
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Sat Oct 19 2019 17:04:37 GMT+0800 (GMT+08:00)
+* Date:Sat Oct 19 2019 17:55:57 GMT+0800 (GMT+08:00)
 */
 
 (function () {
@@ -339,7 +339,7 @@
     }
 
     /**
-     * 样式操作和class相关操作
+     * 样式操作
      * @arguments(key):获取指定样式
      * @arguments(key,value):设置指定样式
      * @arguments():获取全部样式
@@ -448,8 +448,15 @@
       attr, css,
 
       // DOM事件
-      stopPropagation, preventDefault, bind, unbind, trigger
+      bind, unbind, trigger
 
+    });
+
+    xhtml.extend({
+
+      // DOM事件
+      stopPropagation, preventDefault
+      
     });
 
     // 判断当前环境，如果不是浏览器环境

@@ -14,8 +14,15 @@ xhtml.prototype.extend({
   attr, css,
 
   // DOM事件
-  stopPropagation, preventDefault, bind, unbind, trigger
+  bind, unbind, trigger
 
+});
+
+xhtml.extend({
+
+  // DOM事件
+  stopPropagation, preventDefault
+  
 });
 
 // 判断当前环境，如果不是浏览器环境

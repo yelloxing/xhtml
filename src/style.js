@@ -1,7 +1,7 @@
 import getStyle from './.inner/styles';
 
 /**
- * 样式操作和class相关操作
+ * 样式操作
  * @arguments(key):获取指定样式
  * @arguments(key,value):设置指定样式
  * @arguments():获取全部样式

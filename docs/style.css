@@ -1,0 +1,165 @@
+html {
+  /* 统一rem计算基数 */
+  font-size: 100px;
+}
+
+body {
+  /* 恢复正常字体大小 */
+  font-size: .16rem;
+}
+
+body {
+  background: #e4e0e0;
+  padding-top: .6rem;
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", sans-serif;
+}
+
+body>header {
+  line-height: .5rem;
+  background-color: #e76951;
+  border-color: #e76951;
+  color: #fff;
+  user-select: none;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  box-shadow: 0px 4px 5px 0px #f6f6f6;
+}
+
+body>header>ul {
+  width: 10rem;
+  margin: auto;
+}
+
+body>header>ul>li {
+  display: inline-block;
+  padding: 0 15px;
+  font-size: .12rem;
+  cursor: pointer;
+}
+
+body>header>ul>li:first-child {
+  font-size: .2rem;
+}
+
+body>header>ul>li>input {
+  height: .34rem;
+  padding: 6px 12px;
+  font-size: .14rem;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+body>iframe {
+  width: 100%;
+  display: block;
+  height: calc(100vh - .5rem);
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+body>em.position {
+  width: 10rem;
+  margin: auto;
+  display: block;
+  line-height: 2em;
+  font-size: .14rem;
+  font-style: normal;
+  color: #2196F3;
+  padding: 0 .2rem;
+}
+
+
+body>header>ul>li {
+  position: relative;
+}
+
+body>header>ul>li.active::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: .1rem;
+  border-color: transparent transparent #f6f6f6 transparent;
+  border-style: solid;
+  position: absolute;
+  content: " ";
+  top: .3rem;
+  left: 50%;
+  margin-left: -.06rem;
+}
+
+body>footer {
+  width: 10rem;
+  margin: auto;
+  line-height: 1rem;
+  font-size: .14rem;
+  color: #43515a;
+  padding: 0 .2rem;
+}
+
+body>section {
+  width: 10rem;
+  margin: auto;
+  margin-top: .1rem;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: .14rem;
+  font-weight: 600;
+  font-family: cursive;
+  letter-spacing: .1em;
+}
+
+body>section>.little-title {
+  color: red;
+  line-height: 2em;
+  font-weight: 800;
+}
+
+body>section>.title {
+  font-size: .22rem;
+  line-height: 2em;
+}
+
+body>section>.name {
+  font-weight: 600;
+  color: #607D8B;
+  line-height: 2em;
+}
+
+body>section>.code {
+  background-color: #e4e0e0;
+  margin: .1rem 0;
+  padding: .1rem;
+  color: #435159;
+  font-size: .14rem;
+  line-height: 1.6em;
+  font-style: normal;
+}
+
+body>section>.block {
+  text-indent: 2em;
+  line-height: 1.8em;
+}
+
+body>section>.warn {
+  line-height: 2em;
+  color: #ecd505;
+  font-size: .12rem;
+  text-indent: 2em;
+}
+
+ul {
+  margin-left: 1em;
+}
+
+.important {
+  color: red;
+  font-weight: 600;
+  padding: 0 .5em;
+}

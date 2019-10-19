@@ -20,29 +20,37 @@
     <ul>
       <li onclick='window.location.href="https://github.com/yelloxing/xhtml.js"'>🦑 xhtml.js</li>
       <li onclick='window.location.href="./xhtml.html"'>结点对象</li>
-      <li class='active' onclick='window.location.href="./index.html"'>结点操作</li>
+      <li onclick='window.location.href="./index.html"'>结点操作</li>
       <li onclick='window.location.href="./event.html"'>事件</li>
-      <li onclick='window.location.href="./attr_style.html"'>属性或样式</li>
+      <li class='active' onclick='window.location.href="./attr_style.html"'>属性或样式</li>
     </ul>
   </header>
   <section>
-    <div class="title">追加结点</div>
+    <div class="title">属性</div>
     <div class="block">
-      1.在被选元素内部的结尾插入内容：
+      获取或设置结点属性：
     </div>
-    <pre class="code prettyprint">xhtmlObj.append(node|template);</pre>
+    <pre class="code prettyprint">xhtmlObj.attr(attr[, val]);</pre>
     <div class="block">
-      2.在被选元素内部的开头插入内容：
+      如果val没有传，表示获取属性值，否则为设置属性值。
     </div>
-    <pre class="code prettyprint">xhtmlObj.prepend(node|template);</pre>
+  </section>
+  <section>
+    <div class="title">样式</div>
     <div class="block">
-      3.在被选元素之后插入内容：
+      获取或设置样式：
     </div>
-    <pre class="code prettyprint">xhtmlObj.after(node|template);</pre>
+    <pre class="code prettyprint">xhtmlObj.css();</pre>
     <div class="block">
-      4.在被选元素之前插入内容：
+      样式的设置参数比较复杂，一共分以下四种情况：
     </div>
-    <pre class="code prettyprint">xhtmlObj.before(node|template);</pre>
+    <div class="block">1.arguments(key):获取指定样式</div>
+    <div class="block">2.arguments(key,value):设置指定样式</div>
+    <div class="block">3.arguments():获取全部样式</div>
+    <div class="block">4.arguments(json):设置大量样式</div>
+    <div class="warn">
+      温馨提示：获取的样式是浏览器渲染后的值，比如你设置color：red，使用此方法返回的就是rgb(255, 0, 0)！
+    </div>
   </section>
   <footer>
     心叶 &copy;2007-2019 走一步，再走一步

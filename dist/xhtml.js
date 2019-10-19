@@ -5,14 +5,14 @@
 *
 * author 心叶
 *
-* version 1.0.0-alpha
+* version 1.0.1
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Sat Oct 19 2019 17:04:37 GMT+0800 (GMT+08:00)
+* Date:Sat Oct 19 2019 17:55:57 GMT+0800 (GMT+08:00)
 */
 
 "use strict";
@@ -363,7 +363,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return typeof name === 'string' ? allStyle.getPropertyValue(name) : allStyle;
   }
   /**
-   * 样式操作和class相关操作
+   * 样式操作
    * @arguments(key):获取指定样式
    * @arguments(key,value):设置指定样式
    * @arguments():获取全部样式
@@ -486,11 +486,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     attr: attr,
     css: css,
     // DOM事件
-    stopPropagation: stopPropagation,
-    preventDefault: preventDefault,
     bind: bind,
     unbind: unbind,
     trigger: trigger
+  });
+  xhtml.extend({
+    // DOM事件
+    stopPropagation: stopPropagation,
+    preventDefault: preventDefault
   }); // 判断当前环境，如果不是浏览器环境
 
   if ((typeof module === "undefined" ? "undefined" : _typeof(module)) === "object" && _typeof(module.exports) === "object") {

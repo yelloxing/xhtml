@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./logo.png">
+  <script src="./xhtml.js"></script>
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="style.css">
+  <title>文档 | xhtml.js</title>
+  <link rel="stylesheet" href="./prettify.css">
+  <script src="./prettify.js"></script>
+</head>
+
+<body onload="prettyPrint()">
+
+  <header>
+    <ul>
+      <li onclick='window.location.href="https://github.com/yelloxing/xhtml.js"'>🦑 xhtml.js</li>
+      <li class='active' onclick='window.location.href="./xhtml.html"'>结点对象</li>
+      <li onclick='window.location.href="./index.html"'>结点操作</li>
+      <li onclick='window.location.href="./event.html"'>事件</li>
+      <li onclick='window.location.href="./attr_style.html"'>属性或样式</li>
+    </ul>
+  </header>
+  <section>
+    <div class="title">
+      什么是结点对象？
+    </div>
+    <div class="block">
+      xhtml.js作为一个库，提供了二类调用接口:xhtml和xhtmlObj。
+    </div>
+    <div class="block">
+      前者很简单，就是xhtml，提供一系列静态方法，而xhtmlObj就是结点对象，内部维护一系列结点，提供的方法操作的对象就是自身维护的结点。
+    </div>
+    <div class="title">
+      如何获取结点对象？
+    </div>
+    <pre class="code prettyprint">xhtmlObj=xhtml(nodes);</pre>
+    <div class="block">
+      我们可以看到，传递结点给xhtml返回的就是结点对象，nodes可以是数组或结点，甚至是嵌套的结点数组。
+    </div>
+    <div class="block">
+      下面是一些合法的例子：
+    </div>
+    <div class="block">1.xhtmlObj=xhtml(node);</div>
+    <div class="block">2.xhtmlObj=xhtml(node,node,node);</div>
+    <div class="block">3.xhtmlObj=xhtml([node]);</div>
+    <div class="block">4.xhtmlObj=xhtml(node,[node]);</div>
+    <div class="block">5.xhtmlObj=xhtml([node,[node,[node]]]);</div>
+    <div class="block">6.xhtmlObj=xhtml([node,[node,[node]]],node,[]);</div>
+  </section>
+  <footer>
+    心叶 &copy;2007-2019 走一步，再走一步
+  </footer>
+
+</body>
+
+</html>
