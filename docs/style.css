@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  background: #f3e0e0;
+  background: #dcd9d9;
   padding-top: .6rem;
   font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", sans-serif;
 }
@@ -98,7 +98,7 @@ body>footer {
   margin: auto;
   line-height: 1rem;
   font-size: .14rem;
-  color: #e76751;
+  color: #607D8B;
   padding: 0 .2rem;
 }
 
@@ -134,7 +134,7 @@ body>section>.name {
 }
 
 body>section>.code {
-  background-color: #f8d6d6;
+  background-color: #dcd9d9;
   margin: .1rem 0;
   padding: .1rem;
   color: #435159;
@@ -146,7 +146,7 @@ body>section>.code {
 body>section>.block {
   text-indent: 2em;
   line-height: 1.8em;
-  color: #9e4636;
+  color: #100f0f;
 }
 
 body>section>.warn {
