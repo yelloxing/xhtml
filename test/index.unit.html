@@ -21,11 +21,34 @@
     <script src="./unit/object.test.js"></script>
     <script src="./unit/dom.test.js"></script>
     <script src="./unit/event.test.js"></script>
+    <script src="./unit/class.test.js"></script>
 
     <!-- dom结点追加测试用地 -->
     <div id='dom-add-frame'>
         <div id='dom-add'>原始结点</div>
     </div>
+
+    <!-- dom结点查找测试用地 -->
+    <div id='dom-find-frame'>
+        这是文本
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li id='dom-find'>
+                3
+                <span>
+                    孩子结点
+                </span>
+            </li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <span>
+            底部
+        </span>
+    </div>
+
+    <div id="class-frame" class='cls1 cls2 cls3'></div>
 
     <div id="dom-event"></div>
 

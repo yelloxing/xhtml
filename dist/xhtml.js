@@ -5,17 +5,23 @@
 *
 * author 心叶
 *
-* version 1.0.2
+* version 1.0.3
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Sat Oct 19 2019 18:11:16 GMT+0800 (GMT+08:00)
+* Date:Thu Oct 31 2019 17:58:59 GMT+0800 (GMT+08:00)
 */
 
 "use strict";
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -291,6 +297,24 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
   }
   /**
+   * 判断一个值是不是Function。
+   *
+   * @since V0.1.2
+   * @public
+   * @param {*} value 需要判断类型的值
+   * @returns {boolean} 如果是Function返回true，否则返回false
+   */
+
+
+  function isFunction(value) {
+    if (!isObject(value)) {
+      return false;
+    }
+
+    var type = getType(value);
+    return type === '[object Function]' || type === '[object AsyncFunction]' || type === '[object GeneratorFunction]' || type === '[object Proxy]';
+  }
+  /**
    * 基本的DOM操作:增删改查
    */
 
@@ -332,10 +356,92 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
     return this;
   }
+  /*查找结点*/
+  // 寻找后代结点
+
+
+  function find(tagName, checkback) {
+    if (isFunction(tagName) || arguments.length < 1) {
+      checkback = tagName;
+      tagName = "*";
+    }
+
+    var nodes = this[0].getElementsByTagName(tagName); // 如果没有传递筛选函数，全部通过
+
+    if (!isFunction(checkback)) {
+      return this["new"](nodes);
+    }
+
+    var xhtmlObj = this["new"]();
+
+    for (var i = 0; i < nodes.length; i++) {
+      if (checkback(nodes[i])) {
+        xhtmlObj[xhtmlObj.length++] = nodes[i];
+      }
+    }
+
+    return xhtmlObj;
+  } // 寻找祖宗结点
+
+
+  function parents(checkback, stopback) {
+    var nodes = [],
+        node = this[0].parentNode; // 如果当前面对的是结点，继续
+
+    while (isElement(node)) {
+      // 检测是否合格
+      if (!isFunction(checkback) || checkback(node)) {
+        nodes.push(node);
+      } // 判断是否需要继续向上查找
+
+
+      if (isFunction(stopback) && stopback(node)) {
+        break;
+      }
+
+      node = node.parentNode;
+    }
+
+    return this["new"](nodes);
+  } // 寻找孩子结点
+
+
+  function children(checkback) {
+    var nodes = this[0].childNodes,
+        xhtmlObj = this["new"]();
+
+    for (var i = 0; i < nodes.length; i++) {
+      if (isElement(nodes[i]) && (!isFunction(checkback) || checkback(nodes[i]))) {
+        xhtmlObj[xhtmlObj.length++] = nodes[i];
+      }
+    }
+
+    return xhtmlObj;
+  }
+
+  var classHelper = {
+    // targetClass中是否包含checkClass
+    // 空格分割
+    "has": function has(targetClass, checkClass) {
+      targetClass = " " + targetClass + " ";
+      checkClass = " " + checkClass.trim() + " ";
+      return targetClass.indexOf(checkClass) > -1;
+    },
+    "delete": function _delete(targetClass, checkClass) {
+      targetClass = " " + targetClass + " ";
+      checkClass = " " + checkClass.trim() + " ";
+
+      while (targetClass.indexOf(checkClass) > -1) {
+        targetClass = targetClass.replace(checkClass, " ");
+      } // 最后调整一下
+
+
+      return targetClass.trim().replace(/ +/g, " ");
+    }
+  };
   /**
    * 属性操作
    */
-
 
   function attr(attr, val) {
     if (arguments.length < 2) {
@@ -345,6 +451,53 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     for (var i = 0; i < this.length; i++) {
       this[i].setAttribute(attr, val);
     }
+
+    return this;
+  }
+  /**
+   * 特殊属性
+   * ---------------
+   * class
+   */
+  // 判断是否有
+
+
+  function hasClass(clazz) {
+    var oldClazz = this[0].getAttribute('class');
+    return classHelper.has(oldClazz, clazz);
+  } // 删除
+
+
+  function removeClass(clazz) {
+    var oldClazz = this[0].getAttribute('class'); // 删除
+
+    var newClazz = classHelper["delete"](oldClazz, clazz);
+    this[0].setAttribute('class', newClazz);
+    return this;
+  } // 添加
+
+
+  function addClass(clazz) {
+    var oldClazz = this[0].getAttribute('class');
+
+    if (!classHelper.has(oldClazz, clazz)) {
+      this[0].setAttribute('class', oldClazz + " " + clazz);
+    }
+
+    return this;
+  } // 添加或删除
+
+
+  function toggerClass(clazz) {
+    var oldClazz = this[0].getAttribute('class'); // 有就删除
+
+    if (classHelper.has(oldClazz, clazz)) {
+      var newClazz = classHelper["delete"](oldClazz, clazz);
+      this[0].setAttribute('class', newClazz);
+    } // 没有就添加
+    else {
+        this[0].setAttribute('class', oldClazz + " " + clazz);
+      }
 
     return this;
   }
@@ -482,9 +635,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     prepend: prepend,
     after: after,
     before: before,
+    // 查找结点
+    find: find,
+    parents: parents,
+    children: children,
     // 属性和样式
     attr: attr,
     css: css,
+    // class
+    hasClass: hasClass,
+    addClass: addClass,
+    removeClass: removeClass,
+    toggerClass: toggerClass,
     // DOM事件
     bind: bind,
     unbind: unbind,
@@ -494,7 +656,16 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     // DOM事件
     stopPropagation: stopPropagation,
     preventDefault: preventDefault
-  }); // 判断当前环境，如果不是浏览器环境
+  }); // 用于内部建立对象方法
+
+  xhtml.prototype["new"] = function () {
+    for (var _len3 = arguments.length, nodes = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      nodes[_key3] = arguments[_key3];
+    }
+
+    return _construct(xhtml, nodes);
+  }; // 判断当前环境，如果不是浏览器环境
+
 
   if ((typeof module === "undefined" ? "undefined" : _typeof(module)) === "object" && _typeof(module.exports) === "object") {
     module.exports = xhtml;

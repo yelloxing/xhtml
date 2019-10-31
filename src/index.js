@@ -1,7 +1,12 @@
 import xhtml from './xhtml';
 
-import { append, prepend, after, before } from './dom';
-import attr from './attribute';
+import {
+  append, prepend, after, before,
+  find, parents, children
+} from './dom';
+import attr, {
+  hasClass, addClass, removeClass, toggerClass
+} from './attribute';
 import css from './style';
 import { stopPropagation, preventDefault, bind, unbind, trigger } from './event';
 
@@ -10,8 +15,14 @@ xhtml.prototype.extend({
   // 追加结点
   append, prepend, after, before,
 
+  // 查找结点
+  find, parents, children,
+
   // 属性和样式
   attr, css,
+
+  // class
+  hasClass, addClass, removeClass, toggerClass,
 
   // DOM事件
   bind, unbind, trigger
@@ -22,8 +33,13 @@ xhtml.extend({
 
   // DOM事件
   stopPropagation, preventDefault
-  
+
 });
+
+// 用于内部建立对象方法
+xhtml.prototype.new = function (...nodes) {
+  return new xhtml(...nodes);
+};
 
 // 判断当前环境，如果不是浏览器环境
 if (typeof module === "object" && typeof module.exports === "object") {
