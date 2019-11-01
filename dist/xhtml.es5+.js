@@ -5,14 +5,14 @@
 *
 * author 心叶
 *
-* version 1.0.3
+* version 1.0.4
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Thu Oct 31 2019 17:58:59 GMT+0800 (GMT+08:00)
+* Date:Fri Nov 01 2019 16:08:37 GMT+0800 (GMT+08:00)
 */
 
 (function () {
@@ -591,6 +591,64 @@
       return this;
     }
 
+    // 获取元素大小
+    function size (type) {
+      let dom = this[0], elemHeight, elemWidth;
+      if (type == 'content') { //内容
+        elemWidth = dom.clientWidth - ((getStyle(dom, 'padding-left') + "").replace('px', '')) - ((getStyle(dom, 'padding-right') + "").replace('px', ''));
+        elemHeight = dom.clientHeight - ((getStyle(dom, 'padding-top') + "").replace('px', '')) - ((getStyle(dom, 'padding-bottom') + "").replace('px', ''));
+      } else if (type == 'padding') { //内容+内边距
+        elemWidth = dom.clientWidth;
+        elemHeight = dom.clientHeight;
+      } else if (type == 'border') { //内容+内边距+边框
+        elemWidth = dom.offsetWidth;
+        elemHeight = dom.offsetHeight;
+      } else if (type == 'scroll') { //滚动的宽（不包括border）
+        elemWidth = dom.scrollWidth;
+        elemHeight = dom.scrollHeight;
+      } else {
+        elemWidth = dom.offsetWidth;
+        elemHeight = dom.offsetHeight;
+      }
+      return {
+        width: elemWidth,
+        height: elemHeight
+      };
+    }
+
+    // 获取鼠标相对元素位置
+    function mousePosition(event) {
+
+      // 首先获取元素的位置
+      // top、right、bottom和left
+      let bounding = this[0].getBoundingClientRect();
+
+      if (!event || !event.clientX)
+        throw new Error('Event is necessary!');
+      return {
+
+        // 相减获得差值
+        "x": event.clientX - bounding.left,
+        "y": event.clientY - bounding.top
+      };
+    }
+    // 获取元素位置
+    function offsetPosition() {
+      let left = 0, top = 0, dom = this[0];
+      top = dom.offsetTop;
+      left = dom.offsetLeft;
+      dom = dom.offsetParent;
+      while (dom) {
+        top += dom.offsetTop;
+        left += dom.offsetLeft;
+        dom = dom.offsetParent;
+      }
+      return {
+        "left": left,
+        "top": top
+      };
+    }
+
     xhtml.prototype.extend({
 
       // 追加结点
@@ -606,7 +664,13 @@
       hasClass, addClass, removeClass, toggerClass,
 
       // DOM事件
-      bind, unbind, trigger
+      bind, unbind, trigger,
+
+      // 元素大小
+      size,
+
+      // 位置
+      mousePosition, offsetPosition
 
     });
 

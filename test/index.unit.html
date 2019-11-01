@@ -22,6 +22,7 @@
     <script src="./unit/dom.test.js"></script>
     <script src="./unit/event.test.js"></script>
     <script src="./unit/class.test.js"></script>
+    <script src="./unit/size.test.js"></script>
 
     <!-- dom结点追加测试用地 -->
     <div id='dom-add-frame'>
@@ -48,9 +49,19 @@
         </span>
     </div>
 
+    <!-- class测试用地 -->
     <div id="class-frame" class='cls1 cls2 cls3'></div>
 
+    <!-- 事件测试用地 -->
     <div id="dom-event"></div>
+
+    <!-- size测试用地 -->
+    <div id="size-frame"
+        style='overflow:auto;box-sizing: content-box;display:inline-block;width:100px;height:70px;padding:10px;border:10px solid blue;'>
+        <div style='box-sizing: content-box;display:inline-block;width:100px;height:200px;background-color:red;'>
+           里面的内容如果很多，就会有滚动！ 
+        </div>
+    </div>
 
 </body>
 

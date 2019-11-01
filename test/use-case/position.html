@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="../../docs/logo.png">
+  <script src="../../dist/xhtml.js"></script>
+  <title>用例测试 | xhtml.js</title>
+  <style>
+    .outer-class,
+    .inner-class {
+      display: inline-block;
+      width: 700px;
+    }
+
+    .outer-class {
+      height: 200px;
+      border: 1px solid blue;
+      overflow: auto;
+      cursor: pointer;
+    }
+
+    .inner-class {
+      height: 1000px;
+      background-color: purple;
+    }
+  </style>
+  <script>
+    function doIt1(event) {
+      console.error(xhtml(document.getElementById('demo1')).mousePosition(event || window.event));
+    }
+
+    function doIt2() {
+      console.error(xhtml(document.getElementById('demo2')).offsetPosition());
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class='outer-class'>
+    <div class='inner-class'>
+      内容1
+    </div>
+    <input type="button" value="查看元素位置" onclick='doIt2()' id='demo2'>
+    <div class='inner-class' onclick='doIt1()' id='demo1'>
+      内容2（点击查看鼠标相对位置）
+    </div>
+  </div>
+
+</body>
+
+</html>

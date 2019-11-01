@@ -1,14 +1,11 @@
 import xhtml from './xhtml';
 
-import {
-  append, prepend, after, before,
-  find, parents, children
-} from './dom';
-import attr, {
-  hasClass, addClass, removeClass, toggerClass
-} from './attribute';
+import { append, prepend, after, before, find, parents, children } from './dom';
+import attr, { hasClass, addClass, removeClass, toggerClass } from './attribute';
 import css from './style';
 import { stopPropagation, preventDefault, bind, unbind, trigger } from './event';
+import size from './size';
+import { mousePosition, offsetPosition } from './position';
 
 xhtml.prototype.extend({
 
@@ -25,7 +22,13 @@ xhtml.prototype.extend({
   hasClass, addClass, removeClass, toggerClass,
 
   // DOM事件
-  bind, unbind, trigger
+  bind, unbind, trigger,
+
+  // 元素大小
+  size,
+
+  // 位置
+  mousePosition, offsetPosition
 
 });
 
