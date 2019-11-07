@@ -6,7 +6,7 @@
   "main": "dist/xhtml.min.js",
   "scripts": {
     "start": "npm install && npm run build",
-    "build": "rollup -c rollup.config.js && npm run build:babel && npm run build:uglify && node ./scripts/prependBanner.js",
+    "build": "cuf -d ./dist && rollup -c rollup.config.js && npm run build:babel && npm run build:uglify && node ./scripts/prependBanner.js",
     "build:babel": "npx babel dist/xhtml.es5+.js --out-file dist/xhtml.js",
     "build:uglify": "uglifyjs dist/xhtml.js -o dist/xhtml.min.js"
   },
@@ -29,6 +29,7 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "cuf": "^1.0.3",
     "rollup": "^1.20.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
