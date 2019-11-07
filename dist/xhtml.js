@@ -5,14 +5,14 @@
 *
 * author 心叶
 *
-* version 1.1.0
+* version 1.1.1
 *
 * build Sat Oct 21 2019
 *
 * Copyright yelloxing
 * Released under the MIT license
 *
-* Date:Thu Nov 07 2019 15:19:28 GMT+0800 (GMT+08:00)
+* Date:Thu Nov 07 2019 16:34:34 GMT+0800 (GMT+08:00)
 */
 
 "use strict";
@@ -417,6 +417,29 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return xhtmlObj;
+  } // 获取当前指定序号的结点
+
+
+  function eq(index) {
+    var xhtmlObj = this["new"](); // 如果知道的序号存在
+
+    if (this.length > index) {
+      xhtmlObj[0] = this[index];
+      xhtmlObj.length = 1;
+    }
+
+    return xhtmlObj;
+  }
+  /*删除结点*/
+  // 删除当前结点
+
+
+  function remove() {
+    for (var i = 0; i < this.length; i++) {
+      this[i].parentNode.removeChild(this[i]);
+    }
+
+    return this;
   }
 
   var classHelper = {
@@ -706,6 +729,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     find: find,
     parents: parents,
     children: children,
+    eq: eq,
+    // 删除结点
+    remove: remove,
     // 属性和样式
     attr: attr,
     css: css,

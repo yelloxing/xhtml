@@ -15,7 +15,7 @@ QUnit.test('dom / 追加结点', 4, function () {
 
 });
 
-QUnit.test('dom / 查找结点', 7, function () {
+QUnit.test('dom / 查找结点', 8, function () {
 
   var xhtmlObj = xhtml(document.getElementById('dom-find-frame'));
   var xhtmlObj2 = xhtml(document.getElementById('dom-find'));
@@ -41,6 +41,20 @@ QUnit.test('dom / 查找结点', 7, function () {
     return node.tagName == 'SPAN';
   }).length, 1);
 
+  // eq
+  equal(xhtmlObj.find('li').eq(3)[0].innerText, '4');
+
 });
 
+QUnit.test('dom / 删除结点', 2, function () {
 
+  var xhtmlObj = xhtml(document.getElementById('delete-1'));
+
+  equal(xhtmlObj.length, 1);
+
+  xhtmlObj.remove();
+  xhtmlObj = xhtml(document.getElementById('delete-1'));
+
+  equal(xhtmlObj.length, 0);
+
+});

@@ -1,6 +1,6 @@
 import xhtml from './xhtml';
 
-import { append, prepend, after, before, find, parents, children } from './dom';
+import { append, prepend, after, before, find, parents, children, eq, remove } from './dom';
 import attr, { hasClass, addClass, removeClass, toggerClass } from './attribute';
 import css from './style';
 import { stopPropagation, preventDefault, bind, unbind, trigger } from './event';
@@ -13,7 +13,10 @@ xhtml.prototype.extend({
   append, prepend, after, before,
 
   // 查找结点
-  find, parents, children,
+  find, parents, children, eq,
+
+  // 删除结点
+  remove,
 
   // 属性和样式
   attr, css,

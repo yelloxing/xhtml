@@ -103,3 +103,29 @@ export function children(checkback) {
 
   return xhtmlObj;
 };
+
+// 获取当前指定序号的结点
+export function eq(index) {
+
+  let xhtmlObj = this.new();
+
+  // 如果知道的序号存在
+  if (this.length > index) {
+    xhtmlObj[0] = this[index];
+    xhtmlObj.length = 1;
+  }
+
+  return xhtmlObj;
+};
+
+/*删除结点*/
+
+// 删除当前结点
+export function remove() {
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].parentNode.removeChild(this[i]);
+  }
+
+  return this;
+};
