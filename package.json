@@ -1,7 +1,7 @@
 {
   "name": "xhtml.js",
-  "version": "1.1.1",
-  "description": "🦑 常用的html操作集合。Common set of html operations.",
+  "version": "1.1.2",
+  "description": "🦑 Common set of html operations.",
   "browser": "dist/xhtml.min.js",
   "main": "dist/xhtml.min.js",
   "scripts": {

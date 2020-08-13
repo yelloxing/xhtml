@@ -165,3 +165,21 @@ ul {
   font-weight: 600;
   padding: 0 .5em;
 }
+
+.github {
+  position: fixed;
+  transform: rotate(45deg);
+  top: 60px;
+  line-height: 1.6em;
+  right: -60px;
+  background-color: #9e9695;
+  outline: 4px solid #9e9695;
+  transform-origin: 150px 23px;
+  border: 2px dashed #faf6f5;
+  width: 300px;
+  text-align: center;
+  color: #f7f3f2;
+  z-index: 2;
+  font-family: sans-serif;
+  text-decoration: none;
+}

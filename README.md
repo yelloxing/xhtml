@@ -10,7 +10,7 @@
 
 In a browser:
 ```html
-<script src="./dist/xhtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xhtml.js"></script>
 ```
 
 use:
@@ -46,4 +46,4 @@ import xhtml from 'xhtml.js';
 
 [MIT](https://github.com/yelloxing/xhtml.js/blob/master/LICENSE)
 
-Copyright (c) 2007夏-present 走一步 再走一步
+Copyright (c) 2019-2020 走一步 再走一步
